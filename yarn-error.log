@@ -1,0 +1,54 @@
+Arguments: 
+  /opt/homebrew/Cellar/node@16/16.15.0/bin/node /usr/local/bin/yarn
+
+PATH: 
+  /Users/jaroslawgrishunin/Library/pnpm:/opt/homebrew/opt/node@16/bin:/Users/jaroslawgrishunin/.cargo/bin:/opt/homebrew/bin:/Library/Frameworks/Python.framework/Versions/3.10/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin
+
+Yarn version: 
+  1.22.11
+
+Node version: 
+  16.15.0
+
+Platform: 
+  darwin arm64
+
+Trace: 
+  Error: https://herogaming-425657883712.d.codeartifact.eu-central-1.amazonaws.com/npm/frontend/prisma: Unauthenticated: request did not include an Authorization header. Please provide your credentials.
+      at Request.params.callback [as _callback] (/usr/local/lib/node_modules/yarn/lib/cli.js:66992:18)
+      at Request.self.callback (/usr/local/lib/node_modules/yarn/lib/cli.js:140763:22)
+      at Request.emit (node:events:527:28)
+      at Request.<anonymous> (/usr/local/lib/node_modules/yarn/lib/cli.js:141735:10)
+      at Request.emit (node:events:527:28)
+      at Gunzip.<anonymous> (/usr/local/lib/node_modules/yarn/lib/cli.js:141657:12)
+      at Object.onceWrapper (node:events:641:28)
+      at Gunzip.emit (node:events:527:28)
+      at endReadableNT (node:internal/streams/readable:1345:12)
+      at processTicksAndRejections (node:internal/process/task_queues:83:21)
+
+npm manifest: 
+  {
+    "name": "script",
+    "license": "MIT",
+    "devDependencies": {
+      "prisma": "3.12.0",
+      "ts-node": "10.7.0",
+      "typescript": "4.6.3",
+      "@types/node": "16.11.26"
+    },
+    "scripts": {
+      "dev": "ts-node ./script.ts"
+    },
+    "dependencies": {
+      "@prisma/client": "3.12.0"
+    },
+    "engines": {
+      "node": ">=12.2.0"
+    }
+  }
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile

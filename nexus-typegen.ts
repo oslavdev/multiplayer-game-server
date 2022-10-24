@@ -29,6 +29,14 @@ export interface NexusGenScalars {
 
 export interface NexusGenObjects {
   Query: {};
+  User: { // root type
+    activated?: boolean | null; // Boolean
+    admin?: boolean | null; // Boolean
+    email?: string | null; // String
+    id?: number | null; // Int
+    password?: string | null; // String
+    username?: string | null; // String
+  }
 }
 
 export interface NexusGenInterfaces {
@@ -43,13 +51,29 @@ export type NexusGenAllTypes = NexusGenRootTypes & NexusGenScalars
 
 export interface NexusGenFieldTypes {
   Query: { // field return type
-    ok: boolean; // Boolean!
+    users: Array<NexusGenRootTypes['User'] | null>; // [User]!
+  }
+  User: { // field return type
+    activated: boolean | null; // Boolean
+    admin: boolean | null; // Boolean
+    email: string | null; // String
+    id: number | null; // Int
+    password: string | null; // String
+    username: string | null; // String
   }
 }
 
 export interface NexusGenFieldTypeNames {
   Query: { // field return type name
-    ok: 'Boolean'
+    users: 'User'
+  }
+  User: { // field return type name
+    activated: 'Boolean'
+    admin: 'Boolean'
+    email: 'String'
+    id: 'Int'
+    password: 'String'
+    username: 'String'
   }
 }
 

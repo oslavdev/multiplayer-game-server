@@ -3,5 +3,14 @@
 
 
 type Query {
-  ok: Boolean!
+  users: [User]!
+}
+
+type User {
+  activated: Boolean
+  admin: Boolean
+  email: String
+  id: Int
+  password: String
+  username: String
 }

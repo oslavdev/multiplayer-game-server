@@ -1,6 +1,6 @@
-# Multiplayer shooter game Server
+# Multiplayer game Server
 
-WebGL sci-fi multiplayer shooter game.
+WebGL sci-fi multiplayer game.
 
 Client: https://github.com/oslavdev/multiplayer-shooter-client
 

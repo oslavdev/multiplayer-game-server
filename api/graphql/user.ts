@@ -17,8 +17,8 @@ export const UserQuery = extendType({
   definition(t) {
     t.nonNull.list.field('users', {     
       type: 'User',                      
-      resolve() {
-        return [{ id: 1, username: 'Jeff', email:'vandermeer@mail.com' }]
+      resolve(_root, _args, ctx) {                              
+        return ctx.db.users.filter((user: { activated: any }) => user.activated) 
       },
     })
   },

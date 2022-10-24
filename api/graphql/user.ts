@@ -1,4 +1,4 @@
-import { extendType, objectType } from 'nexus'
+import { extendType, nonNull, objectType, stringArg } from 'nexus'
 
 export const User = objectType({
   name: 'User',           
@@ -18,8 +18,33 @@ export const UserQuery = extendType({
     t.nonNull.list.field('users', {     
       type: 'User',                      
       resolve(_root, _args, ctx) {                              
-        return ctx.db.users.filter((user: { activated: any }) => user.activated) 
+        return ctx.db.users.filter((user: { activated: boolean }) => user.activated) 
       },
     })
   },
 })
+
+export const UserMutation = extendType({
+    type: 'Mutation',
+    definition(t) {
+      t.nonNull.field('createUser', {
+        type: 'User',
+        args: {                                        
+            username: nonNull(stringArg()),                
+            email: nonNull(stringArg()),                  
+          },
+        resolve(_root, args, ctx) {
+
+            const user: any = {
+                id: ctx.db.users.length + 1,
+                username: args.username,                         
+                email: args.email                        
+              }
+
+              ctx.db.users.push(user)
+
+              return user
+        },
+      })
+    },
+  })

@@ -1,24 +1,16 @@
 version: "3"
 services:
-  server-api-getaway:
+  server:
     build:
       context: "."
       dockerfile: "Dockerfile"
     depends_on:
-      - db
       - redis
     ports:
-      - "7100:7100"
+      - "4000:4000"
     volumes:
-      - ./:/usr/src/app/server-api-gateway
+      - ./:/usr/src/app/serve
     env_file: .env
-
-  db:
-    image: postgres
-    restart: always
-    env_file: .env
-    ports:
-      - "3337:5432"
 
   redis:
     image: redis

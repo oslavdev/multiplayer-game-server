@@ -1,16 +1,8 @@
-# Multiplayer shooter game Server
+# Multiplayer game server
 
-WebGL sci-fi multiplayer shooter game.
+WebGL 3D hacking game
 
 Client: https://github.com/oslavdev/multiplayer-shooter-client
-
-## Features
-
-- Select and customize character
-- Private maps
-- Choose weapons
-- Audio, video and written chat
-- Selection of maps
 
 ## Tech
 
@@ -20,13 +12,14 @@ Client: https://github.com/oslavdev/multiplayer-shooter-client
 - PostgreSQL
 - Ably (realtime communication)
 - Prisma
+- Nexus
 
-## Deploy
-
-### Build command
-
-
-### Web
+### Development mode
 ```bash
 yarn run dev
+```
+
+### Migration
+```bash
+npx prisma migrate dev --name init --preview-feature
 ```

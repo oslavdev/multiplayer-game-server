@@ -1,0 +1,9 @@
+
+"area: user":
+  - src/graphql/user/**/*
+
+"area: server":
+  - src/server.ts
+
+"area: prisma":
+  - src/prisma/**/*

@@ -4,7 +4,7 @@
  */
 
 
-
+import type { Context } from "./api/context"
 
 
 
@@ -28,7 +28,16 @@ export interface NexusGenScalars {
 }
 
 export interface NexusGenObjects {
+  Mutation: {};
   Query: {};
+  User: { // root type
+    activated?: boolean | null; // Boolean
+    admin?: boolean | null; // Boolean
+    email?: string | null; // String
+    id?: number | null; // Int
+    password?: string | null; // String
+    username?: string | null; // String
+  }
 }
 
 export interface NexusGenInterfaces {
@@ -42,18 +51,46 @@ export type NexusGenRootTypes = NexusGenObjects
 export type NexusGenAllTypes = NexusGenRootTypes & NexusGenScalars
 
 export interface NexusGenFieldTypes {
+  Mutation: { // field return type
+    createUser: NexusGenRootTypes['User']; // User!
+  }
   Query: { // field return type
-    ok: boolean; // Boolean!
+    users: Array<NexusGenRootTypes['User'] | null>; // [User]!
+  }
+  User: { // field return type
+    activated: boolean | null; // Boolean
+    admin: boolean | null; // Boolean
+    email: string | null; // String
+    id: number | null; // Int
+    password: string | null; // String
+    username: string | null; // String
   }
 }
 
 export interface NexusGenFieldTypeNames {
+  Mutation: { // field return type name
+    createUser: 'User'
+  }
   Query: { // field return type name
-    ok: 'Boolean'
+    users: 'User'
+  }
+  User: { // field return type name
+    activated: 'Boolean'
+    admin: 'Boolean'
+    email: 'String'
+    id: 'Int'
+    password: 'String'
+    username: 'String'
   }
 }
 
 export interface NexusGenArgTypes {
+  Mutation: {
+    createUser: { // args
+      email: string; // String!
+      username: string; // String!
+    }
+  }
 }
 
 export interface NexusGenAbstractTypeMembers {
@@ -87,7 +124,7 @@ export type NexusGenFeaturesConfig = {
 }
 
 export interface NexusGenTypes {
-  context: any;
+  context: Context;
   inputTypes: NexusGenInputs;
   rootTypes: NexusGenRootTypes;
   inputTypeShapes: NexusGenInputs & NexusGenEnums & NexusGenScalars;

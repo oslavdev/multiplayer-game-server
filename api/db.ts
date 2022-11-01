@@ -1,14 +1,3 @@
-export interface User {
-    id: number
-    username: string
-    email: string
-    admin: boolean
-    activated: boolean
-  }
+import { PrismaClient } from '@prisma/client'
 
-  export interface Db {
-    users: User[]
-  }
-  export const db: Db = {
-    users: [{ id: 1, username: 'Jeff', email:'vandermeer@mail.com', activated: true, admin: false }],
-  }
+export const db = new PrismaClient()

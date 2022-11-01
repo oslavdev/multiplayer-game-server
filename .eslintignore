@@ -1,0 +1,4 @@
+node_modules
+dist
+prisma
+nexus-typegen.ts

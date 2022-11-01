@@ -24,6 +24,12 @@ export const UserQuery = extendType({
   },
 })
 
+type User = {
+  username: string,                        
+  email: string,
+  activated: boolean,
+  admin: boolean   
+}
 
 export const UserMutation = extendType({
     type: 'Mutation',
@@ -36,7 +42,7 @@ export const UserMutation = extendType({
           },
         resolve(_root, args, ctx) {
 
-             const user: any = {
+             const user: User = {
                 username: args.username,                        
                 email: args.email,
                 activated: true,

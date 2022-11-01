@@ -1,6 +1,9 @@
 # Multiplayer game Server
 
-WebGL sci-fi multiplayer game.
+> **Note** 
+> This is a work in progress repo
+
+WebGL sci-fi multiplayer game. 
 
 Client: https://github.com/oslavdev/multiplayer-shooter-client
 
@@ -18,15 +21,23 @@ Client: https://github.com/oslavdev/multiplayer-shooter-client
 - Docker
 - GraphQL
 - PostgreSQL
-- Ably (realtime communication)
+- Ably
 - Prisma
 
 ## Deploy
 
 ### Build command
 
+### Development 
 
-### Web
+Server will run on http://localhost:4000/
+
 ```bash
-yarn run dev
+    yarn run dev
+```
+
+### DB Migration
+
+```bash
+    npx prisma migrate dev --name init --preview-feature
 ```

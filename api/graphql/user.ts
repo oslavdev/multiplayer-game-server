@@ -18,11 +18,12 @@ export const UserQuery = extendType({
     t.nonNull.list.field('users', {     
       type: 'User',                      
       resolve(_root, _args, ctx) {                              
-        return ctx.db.users.filter((user: { activated: boolean }) => user.activated) 
+        return ctx.db.users.findMany({where: { activated: true }}) 
       },
     })
   },
 })
+
 
 export const UserMutation = extendType({
     type: 'Mutation',
@@ -35,15 +36,14 @@ export const UserMutation = extendType({
           },
         resolve(_root, args, ctx) {
 
-            const user: any = {
-                id: ctx.db.users.length + 1,
-                username: args.username,                         
-                email: args.email                        
+             const user: any = {
+                username: args.username,                        
+                email: args.email,
+                activated: true,
+                admin: false                        
               }
 
-              ctx.db.users.push(user)
-
-              return user
+              return ctx.db.users.create({ data: user })
         },
       })
     },

@@ -1,5 +1,5 @@
 // Import the feedback functions
-import * as danger from 'danger';
+import { danger, fail, message, warn } from 'danger';
 
 /**
  * Setup
@@ -14,7 +14,7 @@ const BREAKING_CHANGE_REGEX = /BREAKING CHANGE:/g;
 /** No ENV files */
 const env_files = created_files.find((file) => file.startsWith('.env'));
 if (env_files) {
-  danger.fail(
+  fail(
     `🙈 This PR contains \`.env\` files. Please remove files before mergin this PR.`
   );
 }
@@ -24,14 +24,12 @@ const are_fixups = danger_commits.find((commit) =>
   commit.message.startsWith('fixup!')
 );
 if (are_fixups) {
-  danger.fail(
-    'This PR contains unsquashed commits. Please use `--autosquash`.'
-  );
+  fail('This PR contains unsquashed commits. Please use `--autosquash`.');
 }
 
 /* If it's not a branch PR */
 if (pr.base.repo.full_name !== pr.head.repo.full_name) {
-  danger.warn(
+  warn(
     "🕵️ This PR comes from a fork, and won't get JS generated for QA testing this PR inside the Emission Example app."
   );
 }
@@ -41,7 +39,7 @@ const packageChanged = danger.git.modified_files.includes('package.json');
 const lockfileChanged = danger.git.modified_files.includes('yarn.lock');
 
 if (packageChanged && !lockfileChanged) {
-  danger.warn(
+  warn(
     `Changes were made to package.json, but not to yarn.lock - <i>'Perhaps you need to run yarn?'</i>`
   );
 }
@@ -56,7 +54,7 @@ const hasReleaseTriggers = danger.git.commits.reduce(
 
 /** No significatn release */
 if (!hasReleaseTriggers) {
-  danger.warn(
+  warn(
     'Pull request will not create new release as no significant commit types were found'
   );
 }
@@ -70,7 +68,7 @@ if (!hasReleaseTriggers) {
  * Reason: Less is more!
  */
 if (danger.github.pr.deletions > danger.github.pr.additions) {
-  danger.message(
+  message(
     `👏 Great job! I see more lines deleted than added. Thanks for keeping us lean!`
   );
 }

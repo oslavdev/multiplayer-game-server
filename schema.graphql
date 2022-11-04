@@ -33,7 +33,7 @@ type SuccessResponse {
 """Basic user type"""
 type User {
   email: String!
-  id: Int!
+  id: String!
   success: Boolean!
   username: String!
 }

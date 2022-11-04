@@ -3,11 +3,13 @@ import * as Utils from '../utils';
 
 import { extendType, nonNull, objectType, stringArg, unionType } from 'nexus';
 
+import bcrypt from 'bcrypt';
+
 export const User = objectType({
   name: 'User',
   description: 'Basic user type',
   definition(t) {
-    t.nonNull.int('id');
+    t.nonNull.string('id');
     t.nonNull.string('username');
     t.nonNull.string('email');
     t.nonNull.boolean('success');
@@ -170,9 +172,11 @@ export const UserMutation = extendType({
           };
         }
 
+        const hashedPassword = await bcrypt.hash(args.password, 10);
+
         const user: User = {
           username: args.username,
-          password: args.password,
+          password: hashedPassword,
           email: args.email,
           activated: true,
         };

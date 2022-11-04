@@ -21,7 +21,6 @@ Client: https://github.com/oslavdev/multiplayer-shooter-client
 - Docker
 - GraphQL
 - PostgreSQL
-- Ably
 - Prisma
 
 ## Deploy

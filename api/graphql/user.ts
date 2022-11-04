@@ -1,3 +1,6 @@
+import * as Constants from '../constants';
+import * as Utils from '../utils';
+
 import { extendType, nonNull, objectType, stringArg, unionType } from 'nexus';
 
 export const User = objectType({
@@ -58,6 +61,7 @@ export const UsersQuery = extendType({
     t.nonNull.list.field('users', {
       type: 'User',
       resolve(_root, _args, ctx) {
+        //TODO: select only required fields
         return ctx?.db?.users?.findMany({ where: { admin: false } }) || [];
       },
     });
@@ -69,8 +73,6 @@ type User = {
   password: string;
   email: string;
   activated: boolean;
-  admin: boolean;
-  createdAt: Date;
 };
 
 /**
@@ -115,6 +117,19 @@ export const UserMutation = extendType({
         confirmPassword: nonNull(stringArg()),
       },
       resolve: async (_root, args, ctx) => {
+        if (!args.password.match(Constants.PasswordPattern)) {
+          return {
+            __typename: 'FieldError',
+            success: false,
+            error: {
+              field: 'password',
+              message:
+                'Password does not match schema. You need to have at least one capital letter, one special symbol and one number!',
+              status: 200,
+            },
+          };
+        }
+
         if (args.password != args.confirmPassword) {
           return {
             __typename: 'FieldError',
@@ -127,20 +142,44 @@ export const UserMutation = extendType({
           };
         }
 
-        const createdAt = new Date();
+        if (!Utils.validateEmail(args.email)) {
+          return {
+            __typename: 'FieldError',
+            success: false,
+            error: {
+              field: 'email',
+              message: 'Email does not match the pattern.',
+              status: 200,
+            },
+          };
+        }
+
+        const existingUser = await ctx.db.users.findUnique({
+          where: { email: args.email },
+        });
+
+        if (existingUser) {
+          return {
+            __typename: 'FieldError',
+            success: false,
+            error: {
+              field: 'email',
+              message: 'User with this email already exists.',
+              status: 200,
+            },
+          };
+        }
 
         const user: User = {
           username: args.username,
           password: args.password,
           email: args.email,
           activated: true,
-          admin: false,
-          createdAt,
         };
 
         const createdUser = await ctx.db.users.create({ data: user });
 
-        return { success: true, ...createdUser };
+        return { success: true, user: createdUser };
       },
     });
   },

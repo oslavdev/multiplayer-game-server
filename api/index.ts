@@ -1,5 +1,7 @@
 import { apolloServer } from './server';
+import cors from 'cors';
 import express from 'express';
+import helmet from 'helmet';
 import winston from 'winston';
 
 const server = async () => {
@@ -30,6 +32,23 @@ const server = async () => {
       })
     );
   }
+
+  app.use(
+    cors({
+      credentials: true, // Enables HTTP cookies over CORS
+      origin: process.env.CLIENT_URL,
+    })
+  );
+
+  app.use(
+    helmet({
+      contentSecurityPolicy: false,
+      referrerPolicy: { policy: 'no-referrer' },
+      noSniff: true,
+    })
+  );
+
+  app.disable('x-powered-by');
 
   app.listen(PORT, () => {
     // eslint-disable-next-line no-console

@@ -11,9 +11,12 @@ datasource db {
 }
 
 model users {
-  id    Int     @id @default(autoincrement())
+  id    String    @id @default(uuid())
   email String  @unique
-  username  String? @unique
-  admin Boolean
+  username  String
+  password String
+  createdAt DateTime @default(now())
+  admin Boolean @default(false)
   activated Boolean
+  blocked Boolean @default(false)
 }

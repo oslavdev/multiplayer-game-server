@@ -1,0 +1,4 @@
+-- AlterTable
+ALTER TABLE "users" ADD COLUMN     "blocked" BOOLEAN DEFAULT false,
+ALTER COLUMN "admin" SET DEFAULT false,
+ALTER COLUMN "createdAt" SET DEFAULT CURRENT_TIMESTAMP;

@@ -2,19 +2,41 @@
 ### Do not make changes to this file directly
 
 
+"""Errors that return to submitted forms"""
+type ErrorBody {
+  field: String!
+  message: String!
+  status: Int!
+}
+
+"""Errors that return to submitted forms"""
+type FieldError {
+  error: ErrorBody!
+  success: Boolean!
+}
+
 type Mutation {
-  createUser(email: String!, username: String!): User!
+  """This schema is for creating a new user"""
+  createUser(confirmPassword: String!, email: String!, password: String!, username: String!): UserUnion!
 }
 
 type Query {
   users: [User]!
 }
 
-type User {
-  activated: Boolean
-  admin: Boolean
-  email: String
-  id: Int
-  password: String
-  username: String
+"""Successful user response"""
+type SuccessResponse {
+  success: Boolean!
+  user: User!
 }
+
+"""Basic user type"""
+type User {
+  email: String!
+  id: String!
+  success: Boolean!
+  username: String!
+}
+
+"""Union type to return either user or error"""
+union UserUnion = FieldError | SuccessResponse
